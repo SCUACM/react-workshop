@@ -5,7 +5,7 @@ class FeedItem extends Component {
         super(props);
 
         this.state = {
-            numClicks: 0,
+            votes: 0,
             comments: ['comment1', 'also comment', 'more comment'],
             commentText: ''
         }
@@ -17,16 +17,16 @@ class FeedItem extends Component {
     }
 
     handleUpvote() {
-        const { numClicks } = this.state;
+        const { votes } = this.state;
         this.setState({
-            numClicks: numClicks + 1
+            votes: votes + 1
         });
     }
 
     handleDownvote() {
-        const { numClicks } = this.state;
+        const { votes } = this.state;
         this.setState({
-            numClicks: numClicks - 1
+            votes: votes - 1
         });
     }
 
@@ -50,12 +50,12 @@ class FeedItem extends Component {
     }
 
     render() {
-        const { numClicks, comments, commentText } = this.state;
+        const { votes, comments, commentText } = this.state;
 
         return (
             <div className='feed'>
                 <div>Hello world! This might be a post ~</div>
-                <div>Votes: {numClicks}
+                <div>Votes: {votes}
                     <button onClick={this.handleUpvote}>Upvote</button>
                     <button onClick={this.handleDownvote}>Downvote</button>
                 </div>
