@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import './index.css';
-import Feed from './components/Feed';
+import './styles.css';
+
+import FeedItem from './components/FeedItem';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<Feed />, document.getElementById('root'));
+ReactDOM.render(<FeedItem />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
