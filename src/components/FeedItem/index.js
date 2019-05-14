@@ -5,8 +5,8 @@ class FeedItem extends Component {
         super(props);
 
         this.state = {
-            votes: 0,
-            comments: ['comment1', 'also comment', 'more comment'],
+            votes: props.post.votes,
+            comments: props.post.comments,
             commentText: ''
         }
 
@@ -53,7 +53,7 @@ class FeedItem extends Component {
         const { votes, comments, commentText } = this.state;
 
         return (
-            <div className='feed'>
+            <div className='feed-item'>
                 <div>Hello world! This might be a post ~</div>
                 <div>Votes: {votes}
                     <button onClick={this.handleUpvote}>Upvote</button>
