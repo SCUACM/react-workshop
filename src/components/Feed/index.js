@@ -32,10 +32,13 @@ class Feed extends Component {
         const { posts } = this.state;
 
         return (
-            <div className='feed'>
-                {posts.map((post, index) =>
-                    <FeedItem post={post} key={index} />
-                )}
+            <div className='container'>
+                <h1 className='feed-title'>React Reddit Feed</h1>
+                <div className='feed'>
+                    {posts.map((post, index) =>
+                        <FeedItem post={post} key={index} />
+                    )}
+                </div>
             </div>
         );
     }

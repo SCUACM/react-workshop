@@ -55,9 +55,9 @@ class FeedItem extends Component {
         return (
             <div className='feed-item card'>
                 <div className='votes'>
-                    <div className='vote upvote' onClick={this.handleUpvote}>^</div>
+                    <div className='vote upvote' onClick={this.handleUpvote}>+</div>
                     <div>{votes}</div>
-                    <div className='vote downvote' onClick={this.handleDownvote}>v</div>
+                    <div className='vote downvote' onClick={this.handleDownvote}>-</div>
                 </div>
                 <div className='post'>
                     <div className='post-info'>r/shurthings</div>

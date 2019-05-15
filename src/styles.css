@@ -3,9 +3,16 @@
     margin: 0;
 }
 
+.feed-title {
+    width: 700px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
 .feed {
     width: 700px;
     margin: auto;
+    padding-bottom: 20px;
 }
 
 .feed-item {
@@ -33,7 +40,7 @@
 }
 
 .votes {
-    background: #fafafa;
+    background: #f7f9fa;
     border-radius: 4px 0 0 4px;
     display: flex;
     flex: 0 0 50px;
@@ -46,16 +53,23 @@
 }
 
 .vote {
+    color: #868a8c;
     user-select: none;
-    font-size: 24px;
+    font-size: 28px;
+    font-weight: bold;
+    padding-bottom: 6px;
+}
+
+.downvote {
+    font-size: 36px;
 }
 
 .upvote:hover {
-    color: orangered;
+    color: #df0b00;
 }
 
 .downvote:hover {
-    color: darkblue;
+    color: #5d6cce;
 }
 
 .post {
