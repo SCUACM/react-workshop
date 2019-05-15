@@ -53,22 +53,26 @@ class FeedItem extends Component {
         const { votes, comments, commentText } = this.state;
 
         return (
-            <div className='feed-item'>
-                <div>Hello world! This might be a post ~</div>
-                <div>Votes: {votes}
-                    <button onClick={this.handleUpvote}>Upvote</button>
-                    <button onClick={this.handleDownvote}>Downvote</button>
+            <div className='feed-item card'>
+                <div className='votes'>
+                    <div className='vote upvote' onClick={this.handleUpvote}>^</div>
+                    <div>{votes}</div>
+                    <div className='vote downvote' onClick={this.handleDownvote}>v</div>
                 </div>
-                {comments.map((comment, index) =>
-                    <div key={index}>
-                        {comment}
-                    </div>
-                )}
-                <textarea
-                    value={commentText}
-                    onChange={this.handleChange}
-                    onKeyDown={this.handleKeyDown}
-                />
+                <div className='post'>
+                    <div className='post-info'>r/shurthings</div>
+                    <div className='title'>Hello world! This might be a post ~</div>
+                    {comments.map((comment, index) =>
+                        <div key={index}>
+                            {comment}
+                        </div>
+                    )}
+                    <textarea
+                        value={commentText}
+                        onChange={this.handleChange}
+                        onKeyDown={this.handleKeyDown}
+                    />
+                </div>
             </div>
         );
     }
