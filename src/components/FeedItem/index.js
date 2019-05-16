@@ -71,7 +71,7 @@ class FeedItem extends Component {
                 <div className='post' onClick={this.handlePostClick}>
                     <div className='post-info'>r/{post.subreddit}</div>
                     <div className='title'>{post.title}</div>
-                    <img src={post.thumbnail}></img>
+                    <img src={post.thumbnail} alt=''></img>
 
                     {/* {comments.map((comment, index) =>
                         <div key={index}>
