@@ -1,42 +1,41 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 import FeedItem from '../FeedItem';
+
 
 class Feed extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            posts: [
-                {
-                    votes: 255,
-                    comments: ['so cool!', 'incredible', 'wow', 'honestly wild']
-                },
-                {
-                    votes: -42,
-                    comments: ['uninspiring', 'not impressed']
-                },
-                {
-                    votes: 12,
-                    comments: []
-                },
-                {
-                    votes: 0,
-                    comments: ['very controversial~', '???', '!!!']
-                }
-            ]
+            posts: []
         };
+    }
+
+    componentDidMount() {
+        axios.get('https://www.reddit.com/r/aww/hot.json?')
+            .then(result => {
+                this.setState({
+                    posts: result.data.data.children
+                });
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 
     render() {
         const { posts } = this.state;
+
+        console.log(posts);
 
         return (
             <div className='container'>
                 <h1 className='feed-title'>React Reddit Feed</h1>
                 <div className='feed'>
                     {posts.map((post, index) =>
-                        <FeedItem post={post} key={index} />
+                        <FeedItem post={post.data} key={index} />
                     )}
                 </div>
             </div>

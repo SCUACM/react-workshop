@@ -5,7 +5,7 @@ class FeedItem extends Component {
         super(props);
 
         this.state = {
-            votes: props.post.votes,
+            votes: props.post.ups - props.post.downs,
             comments: props.post.comments,
             commentText: ''
         }
@@ -14,6 +14,7 @@ class FeedItem extends Component {
         this.handleDownvote = this.handleDownvote.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
+        this.handlePostClick = this.handlePostClick.bind(this);
     }
 
     handleUpvote() {
@@ -49,8 +50,16 @@ class FeedItem extends Component {
         }
     }
 
+    handlePostClick(event) {
+        const { post } = this.props;
+
+        event.preventDefault();
+        window.open('https://www.reddit.com' + post.permalink, '_blank');
+    }
+
     render() {
-        const { votes, comments, commentText } = this.state;
+        const { votes } = this.state;
+        const { post } = this.props;
 
         return (
             <div className='feed-item card'>
@@ -59,10 +68,12 @@ class FeedItem extends Component {
                     <div>{votes}</div>
                     <div className='vote downvote' onClick={this.handleDownvote}>-</div>
                 </div>
-                <div className='post'>
-                    <div className='post-info'>r/shurthings</div>
-                    <div className='title'>Hello world! This might be a post ~</div>
-                    {comments.map((comment, index) =>
+                <div className='post' onClick={this.handlePostClick}>
+                    <div className='post-info'>r/{post.subreddit}</div>
+                    <div className='title'>{post.title}</div>
+                    <img src={post.thumbnail}></img>
+
+                    {/* {comments.map((comment, index) =>
                         <div key={index}>
                             {comment}
                         </div>
@@ -71,7 +82,7 @@ class FeedItem extends Component {
                         value={commentText}
                         onChange={this.handleChange}
                         onKeyDown={this.handleKeyDown}
-                    />
+                    /> */}
                 </div>
             </div>
         );
