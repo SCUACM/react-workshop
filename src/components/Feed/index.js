@@ -43,14 +43,15 @@ class Feed extends Component {
             return;
 
         if (event.key === 'Enter') {
-            axios.get('https://www.reddit.com' + subreddit + '/hot.json')
+            axios.get('https://www.reddit.com' + subreddit + '/hot.json?')
                 .then(result => {
                     this.setState({
                         posts: result.data.data.children,
-                        error: false
+                        error: ''
                     });
                 })
                 .catch(error => {
+                    console.log(error);
                     this.setState({
                         posts: [],
                         error: true
