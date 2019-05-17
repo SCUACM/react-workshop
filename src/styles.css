@@ -3,10 +3,24 @@
     margin: 0;
 }
 
-.feed-title {
+.header {
+    display: flex;
+    align-items: center;
     width: 700px;
     margin: 0 auto;
+}
+
+.feed-title {
+    margin: 0;
+    margin-right: auto;
     padding: 20px 0;
+}
+
+.subreddit-input {
+    height: 28px;
+    width: 250px;
+    font-size: 24px;
+    outline: none;
 }
 
 .feed {
@@ -93,4 +107,13 @@
     color: #444;
     font-size: 12px;
     font-weight: 700;
+}
+
+.error {
+    display: flex;
+    justify-content: center;
+    width: 700px;
+    margin: auto;
+    margin-top: 40px;
+    font-size: 24px;
 }
