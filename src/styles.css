@@ -16,11 +16,24 @@
     padding: 20px 0;
 }
 
+.subreddit-prefix {
+    height: 30px;
+    width: 25px;
+    font-size: 24px;
+    outline: none;
+    background: #eee;
+    border: 1px solid #ccc;
+    border-right: none;
+    text-align: right;
+}
+
 .subreddit-input {
     height: 28px;
     width: 250px;
     font-size: 24px;
     outline: none;
+    border: 1px solid #ccc;
+    border-left: none;
 }
 
 .feed {

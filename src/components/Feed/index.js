@@ -10,7 +10,7 @@ class Feed extends Component {
 
         this.state = {
             posts: [],
-            subreddit: '/r/aww',
+            subreddit: 'aww',
             error: ''
         };
 
@@ -43,7 +43,7 @@ class Feed extends Component {
             return;
 
         if (event.key === 'Enter') {
-            axios.get('https://www.reddit.com' + subreddit + '/hot.json?')
+            axios.get('https://www.reddit.com/r/' + subreddit + '/hot.json?')
                 .then(result => {
                     this.setState({
                         posts: result.data.data.children,
@@ -67,6 +67,7 @@ class Feed extends Component {
             <div className='container'>
                 <div className='header'>
                     <h1 className='feed-title'>React Reddit Feed</h1>
+                    <div className='subreddit-prefix'>/r/</div>
                     <input
                         className='subreddit-input'
                         placeholder='enter a subreddit'
