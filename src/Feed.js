@@ -4,61 +4,71 @@ import axios from 'axios';
 import FeedItem from './FeedItem';
 
 class Feed extends React.Component {
-    constructor(props) {
-        super(props);
+    state = {
+        posts: [],
+        value: 'aww',
+        error: ''
+    }
 
-        this.state = {
-            posts: [],
-            value: 'aww',
-            error: ''
-        };
+    getData() {
+        const { value } = this.state;
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleKeyDown = this.handleKeyDown.bind(this);
+        axios.get(`https://www.reddit.com/r/${value}/top.json`)
+            .then(result => {
+                this.setState({
+                    posts: result.data.data.children,
+                    error: ''
+                });
+            })
+            .catch(error => {
+                console.log(error);
+                this.setState({
+                    posts: [],
+                    error: true
+                });
+            });
     }
 
     componentDidMount() {
-        axios.get('https://www.reddit.com/r/aww/hot.json?')
-            .then(result => {
-                this.setState({
-                    posts: result.data.data.children
-                });
-            })
-            .catch(error => console.log(error));
+        this.getData();
     }
 
-    handleChange(event) {
+    handleChange = event => {
         this.setState({
             value: event.target.value
         });
     }
 
-    handleKeyDown(event) {
+    handleKeyDown = event => {
         const { value } = this.state;
 
         if (value === '')
             return;
 
-        if (event.key === 'Enter') {
-            axios.get('https://www.reddit.com/r/' + value + '/hot.json?')
-                .then(result => {
-                    this.setState({
-                        posts: result.data.data.children,
-                        error: ''
-                    });
-                })
-                .catch(error => {
-                    console.log(error);
-                    this.setState({
-                        posts: [],
-                        error: true
-                    })
-                });
-        }
+        if (event.key === 'Enter')
+            this.getData();
+    }
+
+    renderFeed() {
+        const { posts } = this.state;
+
+        return (
+            <div className='feed'>
+                {posts.map((post, index) => <FeedItem post={post.data} key={index} />)}
+            </div>
+        );
+    }
+
+    renderError() {
+        return (
+            <div className='error'>
+                Error: Subreddit doesn't exist or something went wrong!
+            </div>
+        );
     }
 
     render() {
-        const { posts, value, error } = this.state;
+        const { value, error } = this.state;
 
         return (
             <div className='container'>
@@ -73,14 +83,8 @@ class Feed extends React.Component {
                         onKeyDown={this.handleKeyDown}
                     />
                 </div>
-                {error === ''
-                 ?  <div className='feed'>
-                        {posts.map((post, index) => <FeedItem post={post.data} key={index} />)}
-                    </div>
-                 :  <div className='error'>
-                        Error: Subreddit doesn't exist or something went wrong!
-                    </div>
-                }
+
+                {error ? this.renderError() : this.renderFeed()}
             </div>
         );
     }

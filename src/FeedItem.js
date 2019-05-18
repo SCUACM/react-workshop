@@ -7,33 +7,21 @@ class FeedItem extends React.Component {
     this.state = {
       votes: props.post.ups
     };
-
-    this.handleUpvote = this.handleUpvote.bind(this);
-    this.handleDownvote = this.handleDownvote.bind(this);
-    this.handlePostClick = this.handlePostClick.bind(this);
   }
 
-  handleUpvote() {
+  handleVote(delta) {
     const { votes } = this.state;
 
     this.setState({
-      votes: votes + 1
+      votes: votes + delta
     });
   }
 
-  handleDownvote() {
-    const { votes } = this.state;
-
-    this.setState({
-      votes: votes - 1
-    });
-  }
-
-  handlePostClick(event) {
+  handlePostClick = event => {
     const { post } = this.props;
 
     event.preventDefault();
-    window.open('https://www.reddit.com' + post.permalink, '_blank');
+    window.open(`https://www.reddit.com${post.permalink}`, '_blank');
   }
 
   render() {
@@ -43,9 +31,9 @@ class FeedItem extends React.Component {
     return (
       <div className='feed-item card'>
         <div className='votes'>
-          <div className='vote upvote' onClick={this.handleUpvote}>+</div>
+          <div className='vote upvote' onClick={() => this.handleVote(1)}>+</div>
           <div>{votes}</div>
-          <div className='vote downvote' onClick={this.handleDownvote}>-</div>
+          <div className='vote downvote' onClick={() => this.handleVote(-1)}>-</div>
         </div>
         <div className='post' onClick={this.handlePostClick}>
           <div className='post-info'>r/{post.subreddit}</div>
