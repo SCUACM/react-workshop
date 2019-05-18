@@ -6,14 +6,10 @@ class FeedItem extends Component {
 
         this.state = {
             votes: props.post.ups - props.post.downs,
-            comments: props.post.comments,
-            commentText: ''
         }
 
         this.handleUpvote = this.handleUpvote.bind(this);
         this.handleDownvote = this.handleDownvote.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleKeyDown = this.handleKeyDown.bind(this);
         this.handlePostClick = this.handlePostClick.bind(this);
     }
 
@@ -29,25 +25,6 @@ class FeedItem extends Component {
         this.setState({
             votes: votes - 1
         });
-    }
-
-    handleChange(event) {
-        this.setState({ commentText: event.target.value });
-    }
-
-    handleKeyDown(event) {
-        const { commentText, comments } = this.state;
-
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            this.setState({
-                commentText: '',
-                comments: [
-                    ...comments,
-                    commentText
-                ]
-            });
-        }
     }
 
     handlePostClick(event) {
@@ -72,17 +49,6 @@ class FeedItem extends Component {
                     <div className='post-info'>r/{post.subreddit}</div>
                     <div className='title'>{post.title}</div>
                     <img src={post.thumbnail} alt=''></img>
-
-                    {/* {comments.map((comment, index) =>
-                        <div key={index}>
-                            {comment}
-                        </div>
-                    )}
-                    <textarea
-                        value={commentText}
-                        onChange={this.handleChange}
-                        onKeyDown={this.handleKeyDown}
-                    /> */}
                 </div>
             </div>
         );
