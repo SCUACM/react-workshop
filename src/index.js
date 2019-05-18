@@ -1,10 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import './index.css';
-import './styles.css';
-
-import Feed from './components/Feed';
+import Feed from './Feed';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<Feed />, document.getElementById('root'));

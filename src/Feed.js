@@ -1,21 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import axios from 'axios';
 
-import FeedItem from '../FeedItem';
+import FeedItem from './FeedItem';
 
-
-class Feed extends Component {
+class Feed extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             posts: [],
-            subreddit: 'aww',
+            value: 'aww',
             error: ''
         };
 
-        this.handleSubredditChange = this.handleSubredditChange.bind(this);
-        this.handleSubredditSubmit = this.handleSubredditSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleKeyDown = this.handleKeyDown.bind(this);
     }
 
     componentDidMount() {
@@ -25,25 +24,23 @@ class Feed extends Component {
                     posts: result.data.data.children
                 });
             })
-            .catch(error => {
-                console.log(error);
-            });
+            .catch(error => console.log(error));
     }
 
-    handleSubredditChange(event) {
+    handleChange(event) {
         this.setState({
-            subreddit: event.target.value
+            value: event.target.value
         });
     }
 
-    handleSubredditSubmit(event) {
-        const { subreddit } = this.state;
+    handleKeyDown(event) {
+        const { value } = this.state;
 
-        if (subreddit === '')
+        if (value === '')
             return;
 
         if (event.key === 'Enter') {
-            axios.get('https://www.reddit.com/r/' + subreddit + '/hot.json?')
+            axios.get('https://www.reddit.com/r/' + value + '/hot.json?')
                 .then(result => {
                     this.setState({
                         posts: result.data.data.children,
@@ -61,7 +58,7 @@ class Feed extends Component {
     }
 
     render() {
-        const { posts, subreddit, error } = this.state;
+        const { posts, value, error } = this.state;
 
         return (
             <div className='container'>
@@ -71,16 +68,14 @@ class Feed extends Component {
                     <input
                         className='subreddit-input'
                         placeholder='enter a subreddit'
-                        value={subreddit}
-                        onChange={this.handleSubredditChange}
-                        onKeyDown={this.handleSubredditSubmit}
+                        value={value}
+                        onChange={this.handleChange}
+                        onKeyDown={this.handleKeyDown}
                     />
                 </div>
                 {error === ''
                  ?  <div className='feed'>
-                        {posts.map((post, index) =>
-                            <FeedItem post={post.data} key={index} />
-                        )}
+                        {posts.map((post, index) => <FeedItem post={post.data} key={index} />)}
                     </div>
                  :  <div className='error'>
                         Error: Subreddit doesn't exist or something went wrong!
